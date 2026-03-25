@@ -1,0 +1,2 @@
+[console_scripts]
+tapegif-pro = tapegif_pro.cli:main

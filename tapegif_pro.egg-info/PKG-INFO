@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: tapegif-pro
+Version: 1.0.0
+Summary: tapegif Pro — TUI recorder, WebP/APNG output, watermarks
+License: Proprietary
+Requires-Python: >=3.10
+Requires-Dist: tapegif>=0.1.0
+Requires-Dist: textual>=0.80.0
+Requires-Dist: playwright>=1.40.0
+Requires-Dist: Pillow>=10.0.0
+Requires-Dist: click>=8.0.0

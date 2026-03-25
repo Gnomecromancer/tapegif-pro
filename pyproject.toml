@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tapegif-pro"
+version = "1.0.0"
+description = "tapegif Pro — TUI recorder, WebP/APNG output, watermarks"
+license = { text = "Proprietary" }
+requires-python = ">=3.10"
+dependencies = [
+    "tapegif>=0.1.0",
+    "textual>=0.80.0",
+    "playwright>=1.40.0",
+    "Pillow>=10.0.0",
+    "click>=8.0.0",
+]
+
+[project.scripts]
+tapegif-pro = "tapegif_pro.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tapegif_pro*"]
