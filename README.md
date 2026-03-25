@@ -65,4 +65,4 @@ tapegif-pro preview APP [--output FILE] [--sleep SECS]
 
 ## License
 
-Commercial — distributed as part of the devcull Pro Pack.
+MIT
