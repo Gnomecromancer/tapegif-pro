@@ -1,5 +1,0 @@
-tapegif>=0.1.0
-textual>=0.80.0
-playwright>=1.40.0
-Pillow>=10.0.0
-click>=8.0.0
