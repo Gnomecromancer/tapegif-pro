@@ -121,22 +121,25 @@ def preview(app_spec: str, output: Path, sleep: float):
 
     svg, _ = frames[0]
 
-    _HTML = "<html><head><style>html,body{{margin:0;padding:0;background:transparent;display:inline-block;}}</style></head><body>{svg}</body></html>"
+    import re
+    _HTML = "<html><head><style>html,body{{margin:0;padding:0;background:#000;}}svg{{display:block;}}</style></head><body>{svg}</body></html>"
+
+    def _vb(s):
+        m = re.search(r'viewBox=["\'][\d.]+ [\d.]+ ([\d.]+) ([\d.]+)["\']', s)
+        return (int(float(m.group(1))), int(float(m.group(2)))) if m else None
 
     with sync_playwright() as pw:
         browser = pw.chromium.launch()
         page = browser.new_page()
+        vb = _vb(svg)
+        if vb:
+            page.set_viewport_size({"width": vb[0] + 4, "height": vb[1] + 4})
         with tempfile.NamedTemporaryFile(suffix=".html", delete=False, mode="w", encoding="utf-8") as f:
             f.write(_HTML.format(svg=svg))
             tmp = f.name
         try:
             page.goto("file:///" + tmp.replace("\\", "/"))
             page.wait_for_load_state("networkidle")
-            el = page.query_selector("svg")
-            if el:
-                bb = el.bounding_box()
-                if bb:
-                    page.set_viewport_size({"width": max(1, int(bb["width"]) + 4), "height": max(1, int(bb["height"]) + 4)})
             png = page.screenshot(full_page=True)
         finally:
             os.unlink(tmp)
